@@ -51,14 +51,16 @@ def save_to_db(data):
             color TEXT, description TEXT, total TEXT, created_at TEXT, date TEXT
         )
     ''')
-    c.execute('''
-        INSERT INTO invoices (name, vehicle, address, vin, cityzip, lic, phone, mileage, color, total, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ''', (
-        data['name'], data['vehicle'], data['address'], data['vin'],
-        data['cityzip'], data['lic'], data['phone'], data['mileage'],
-        data['color'], data['description'], data['total'], data.get('date', datetime.now().isoformat())
-    ))
+c.execute('''
+    INSERT INTO invoices (name, vehicle, address, vin, cityzip, lic, phone, mileage, color, description, total, created_at, date)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+''', (
+    data['name'], data['vehicle'], data['address'], data['vin'],
+    data['cityzip'], data['lic'], data['phone'], data['mileage'],
+    data['color'], data['description'], data['total'],
+    datetime.now().isoformat(), data.get('date', datetime.now().strftime('%Y-%m-%d'))
+))
+
     conn.commit()
     conn.close()
 
