@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8" />
-<title>Test Invoice App</title>
+<title>Factura Charlie Auto Paint</title>
+<script defer src="/static/script.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-<h1>¡Hola! La app funciona 🎉</h1>
+<body class="bg-gray-100 p-6">
+<div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded">
+<h1 class="text-2xl font-bold mb-4">Formulario de Factura</h1>
+<form id="invoiceForm">
+<div class="grid grid-cols-2 gap-4">
+<input class="border p-2" name="name" placeholder="Nombre del Cliente">
+<input class="border p-2" name="vehicle" placeholder="Vehículo">
+<input class="border p-2" name="address" placeholder="Dirección">
+<input class="border p-2" name="vin" placeholder="VIN">
+<input class="border p-2" name="cityzip" placeholder="Ciudad y Código Postal">
+<input class="border p-2" name="lic" placeholder="Placa">
+<input class="border p-2" name="phone" placeholder="Teléfono">
+<input class="border p-2" name="mileage" placeholder="Millaje">
+<input class="border p-2" name="color" placeholder="Color">
+<input class="border p-2" name="date" type="date" value="">
+</div>
+<div class="mt-4">
+<label class="block font-semibold">Descripción del trabajo:</label>
+<textarea class="border p-2 w-full" name="description" placeholder="Descripción del trabajo"></textarea>
+</div>
+<div class="mt-4">
+<label class="block font-semibold">Total ($):</label>
+<input class="border p-2 w-full" name="total" placeholder="1300.00">
+</div>
+<div class="mt-6">
+<button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Generar PDF</button>
+</div>
+</form>
+</div>
 </body>
 </html>
