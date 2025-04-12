@@ -1,9 +1,9 @@
-
 from flask import Flask, request, send_file, render_template
 from reportlab.pdfgen import canvas
 import io
 import sqlite3
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 
@@ -15,7 +15,7 @@ def form():
 def generate_invoice():
     data = request.json
     save_to_db(data)
-    
+
     buffer = io.BytesIO()
     c = canvas.Canvas(buffer)
     c.drawString(100, 800, f"Cliente: {data['name']}")
@@ -33,7 +33,7 @@ def generate_invoice():
         text_object.textLine(line)
     c.drawText(text_object)
     c.drawString(100, text_object.getY() - 20, f"Total: ${data['total']}")
-    c.drawString(100, 600, f"Fecha: {data.get('date', datetime.now().strftime('%Y-%m-%d'))}")
+    c.drawString(100, text_object.getY() - 40, f"Fecha: {data.get('date', datetime.now().strftime('%Y-%m-%d'))}")
     c.showPage()
     c.save()
     buffer.seek(0)
@@ -47,27 +47,4 @@ def save_to_db(data):
         CREATE TABLE IF NOT EXISTS invoices (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT, vehicle TEXT, address TEXT, vin TEXT,
-            cityzip TEXT, lic TEXT, phone TEXT, mileage TEXT,
-            color TEXT, description TEXT, total TEXT, created_at TEXT, date TEXT
-        )
-    ''')
-c.execute('''
-    INSERT INTO invoices (name, vehicle, address, vin, cityzip, lic, phone, mileage, color, description, total, created_at, date)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-''', (
-    data['name'], data['vehicle'], data['address'], data['vin'],
-    data['cityzip'], data['lic'], data['phone'], data['mileage'],
-    data['color'], data['description'], data['total'],
-    datetime.now().isoformat(), data.get('date', datetime.now().strftime('%Y-%m-%d'))
-))
-
-    conn.commit()
-    conn.close()
-
-
-import os
-
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(debug=False, host='0.0.0.0', port=port)
-
+            city
