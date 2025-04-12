@@ -47,4 +47,22 @@ def save_to_db(data):
         CREATE TABLE IF NOT EXISTS invoices (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT, vehicle TEXT, address TEXT, vin TEXT,
-            city
+            cityzip TEXT, lic TEXT, phone TEXT, mileage TEXT,
+            color TEXT, description TEXT, total TEXT, created_at TEXT, date TEXT
+        )
+    ''')
+    c.execute('''
+        INSERT INTO invoices (name, vehicle, address, vin, cityzip, lic, phone, mileage, color, description, total, created_at, date)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ''', (
+        data['name'], data['vehicle'], data['address'], data['vin'],
+        data['cityzip'], data['lic'], data['phone'], data['mileage'],
+        data['color'], data['description'], data['total'],
+        datetime.now().isoformat(), data.get('date', datetime.now().strftime('%Y-%m-%d'))
+    ))
+    conn.commit()
+    conn.close()
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
