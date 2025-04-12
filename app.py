@@ -1,9 +1,7 @@
 from flask import Flask, request, send_file, render_template
 from reportlab.pdfgen import canvas
 import io
-import sqlite3
 from datetime import datetime
-import os
 
 app = Flask(__name__)
 
@@ -14,7 +12,7 @@ def form():
 @app.route('/generate_invoice', methods=['POST'])
 def generate_invoice():
     data = request.json
-    save_to_db(data)
+    print("Datos recibidos:", data)  # Simula guardar datos en consola
 
     buffer = io.BytesIO()
     c = canvas.Canvas(buffer)
@@ -39,26 +37,3 @@ def generate_invoice():
     buffer.seek(0)
 
     return send_file(buffer, as_attachment=True, download_name="invoice.pdf", mimetype='application/pdf')
-
-def save_to_db(data):
-    conn = sqlite3.connect('invoices.db')
-    c = conn.cursor()
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS invoices (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT, vehicle TEXT, address TEXT, vin TEXT,
-            cityzip TEXT, lic TEXT, phone TEXT, mileage TEXT,
-            color TEXT, description TEXT, total TEXT, created_at TEXT, date TEXT
-        )
-    ''')
-    c.execute('''
-        INSERT INTO invoices (name, vehicle, address, vin, cityzip, lic, phone, mileage, color, description, total, created_at, date)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ''', (
-        data['name'], data['vehicle'], data['address'], data['vin'],
-        data['cityzip'], data['lic'], data['phone'], data['mileage'],
-        data['color'], data['description'], data['total'],
-        datetime.now().isoformat(), data.get('date', datetime.now().strftime('%Y-%m-%d'))
-    ))
-    conn.commit()
-    conn.close()
