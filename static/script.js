@@ -1,25 +1,24 @@
-
-document.getElementById('invoiceForm').addEventListener('submit', async function (e) {
+document.getElementById("invoiceForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-  const formData = new FormData(e.target);
-  const data = {};
-  formData.forEach((value, key) => data[key] = value);
 
-  const response = await fetch('/generate_invoice', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
+  const form = e.target;
+  const formData = new FormData(form);
+  const data = {};
+  formData.forEach((val, key) => data[key] = val);
+
+  const response = await fetch("/generate_invoice", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
   });
 
   if (response.ok) {
     const blob = await response.blob();
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'invoice.pdf';
-    a.click();
-    window.URL.revokeObjectURL(url);
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = "invoice.pdf";
+    link.click();
   } else {
-    alert('Error al generar el PDF.');
+    alert("Error generando la factura");
   }
 });
