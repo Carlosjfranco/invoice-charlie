@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
-<title>Factura Charlie Auto Paint</title>
+<title>Recibo Charlie Auto Paint</title>
 <script defer src="/static/script.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 p-6">
 <div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded">
-<h1 class="text-2xl font-bold mb-4">Formulario de Factura</h1>
+<h1 class="text-2xl font-bold mb-4">Invoice de Vehiculos</h1>
 <form id="invoiceForm">
 <div class="grid grid-cols-2 gap-4">
 <input class="border p-2" name="name" placeholder="Nombre del Cliente">
@@ -28,10 +28,10 @@
 </div>
 <div class="mt-4">
 <label class="block font-semibold">Total ($):</label>
-<input class="border p-2 w-full" name="total" placeholder="1300.00">
+<input class="border p-2 w-full" name="total" type="number" placeholder="1000.00">
 </div>
 <div class="mt-6">
-<button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Generar PDF</button>
+<button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Guardar Invoice</button>
 </div>
 </form>
 </div>
