@@ -18,6 +18,7 @@ document.getElementById("invoiceForm").addEventListener("submit", async (e) => {
     link.href = window.URL.createObjectURL(blob);
     link.download = "invoice.pdf";
     link.click();
+    form.reset();
   } else {
     alert("Error generando la factura");
   }
