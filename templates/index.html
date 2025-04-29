@@ -1,39 +1,47 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Recibo Charlie Auto Paint</title>
-<script defer src="/static/script.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Vehicle Invoice Form</title>
+  <script defer src="/static/script.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    input, textarea {
+      text-transform: uppercase;
+    }
+  </style>
 </head>
 <body class="bg-gray-100 p-6">
-<div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded">
-<h1 class="text-2xl font-bold mb-4">Invoice de Vehiculos</h1>
-<form id="invoiceForm">
-<div class="grid grid-cols-2 gap-4">
-<input class="border p-2" name="name" placeholder="Nombre del Cliente">
-<input class="border p-2" name="vehicle" placeholder="Vehículo">
-<input class="border p-2" name="address" placeholder="Dirección">
-<input class="border p-2" name="vin" placeholder="VIN">
-<input class="border p-2" name="cityzip" placeholder="Ciudad y Código Postal">
-<input class="border p-2" name="lic" placeholder="Placa">
-<input class="border p-2" name="phone" placeholder="Teléfono">
-<input class="border p-2" name="mileage" placeholder="Millaje">
-<input class="border p-2" name="color" placeholder="Color">
-<input class="border p-2" name="date" type="date" value="">
-</div>
-<div class="mt-4">
-<label class="block font-semibold">Descripción del trabajo:</label>
-<textarea class="border p-2 w-full" name="description" placeholder="Descripción del trabajo"></textarea>
-</div>
-<div class="mt-4">
-<label class="block font-semibold">Total ($):</label>
-<input class="border p-2 w-full" name="total" type="number" placeholder="1000.00">
-</div>
-<div class="mt-6">
-<button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Guardar Invoice</button>
-</div>
-</form>
-</div>
+  <div class="max-w-3xl mx-auto bg-white p-8 shadow-md rounded">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-xl font-bold">INVOICE FORM</h1>
+      <img src="/static/logo.png" alt="Logo" class="h-10">
+    </div>
+    <form id="invoiceForm">
+      <div class="grid grid-cols-2 gap-4">
+        <input class="border p-2" name="name" placeholder="CUSTOMER NAME">
+        <input class="border p-2" name="vehicle" placeholder="VEHICLE">
+        <input class="border p-2" name="address" placeholder="ADDRESS">
+        <input class="border p-2" name="vin" placeholder="VIN">
+        <input class="border p-2" name="cityzip" placeholder="CITY & ZIP CODE">
+        <input class="border p-2" name="lic" placeholder="LICENSE PLATE">
+        <input class="border p-2" name="phone" placeholder="PHONE NUMBER">
+        <input class="border p-2" name="mileage" placeholder="MILEAGE">
+        <input class="border p-2" name="color" placeholder="COLOR">
+        <input id="dateField" class="border p-2" name="date" type="date" value="{{ current_date }}">
+      </div>
+      <div class="mt-4">
+        <label class="block font-semibold">WORK DESCRIPTION:</label>
+        <textarea id="description" class="border p-2 w-full resize-none leading-tight" name="description" rows="5" maxlength="500" placeholder="DESCRIPTION"></textarea>
+      </div>
+      <div class="mt-4">
+        <label class="block font-semibold">TOTAL ($):</label>
+        <input class="border p-2 w-full" name="total" type="number" placeholder="1000.00">
+      </div>
+      <div class="mt-6">
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">SAVE INVOICE</button>
+      </div>
+    </form>
+  </div>
 </body>
 </html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Invoice - Charlie Auto Paint</title>
+  <style>
+    @page { size: letter; margin: 0cm; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 9pt;
+      text-transform: uppercase;
+    }
+    .invoice-container {
+      width: 100%;
+      height: 100%;
+      padding: 18px;
+      border: 1px solid #000;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .header {
+      text-align: center;
+    }
+    .header img {
+      max-width: 400px;
+      margin-bottom: 4px;
+    }
+    .header h1 {
+      font-size: 16pt;
+      margin: 0;
+    }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 95%;
+      margin: 8px auto;
+    }
+    .invoice-meta, .section-title {
+      margin-top: 8px;
+    }
+    .section-title {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    table {
+      width: 98%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin: auto;
+    }
+    th, td {
+      border: 1px solid #aaa;
+      padding: 4px;
+      word-wrap: break-word;
+    }
+    .two-column td {
+      width: 50%;
+    }
+    .description-box {
+      border: 1px solid #aaa;
+      padding: 6px;
+      min-height: 400px;
+      white-space: pre-wrap;
+      line-height: 1.2;
+      margin: 4px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .totals {
+      text-align: right;
+      font-weight: bold;
+      font-size: 10pt;
+      margin-top: 10px;
+      width: 98%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .signature {
+      margin-top: 30px;
+      text-align: right;
+      width: 98%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .footer {
+      text-align: center;
+      font-size: 8pt;
+      margin-top: 15px;
+      width: 98%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-container">
+    <div>
+      <div class="header">
+        <img src="logo.png" alt="Logo Charlie Auto Paint">
+      </div>
+      <div class="meta-row">
+        <p><strong>Invoice No:</strong> {{ invoice_number }}</p>
+        <p><strong>Date:</strong> {{ data.date or "" }}</p>
+      </div>
+
+      <div class="section-title">Customer and Vehicle Details</div><br>
+      <table class="two-column">
+        <tr><td><strong>Customer:</strong> {{ data.name }}</td><td><strong>Vehicle:</strong> {{ data.vehicle }}</td></tr>
+        <tr><td><strong>Address:</strong> {{ data.address }}</td><td><strong>VIN No.:</strong> {{ data.vin }}</td></tr>
+        <tr><td><strong>City and Zip Code:</strong> {{ data.cityzip }}</td><td><strong>License Plate:</strong> {{ data.lic }}</td></tr>
+        <tr><td><strong>Phone:</strong> {{ data.phone }}</td><td><strong>Mileage:</strong> {{ data.mileage }}</td></tr>
+        <tr><td><strong>Color:</strong> {{ data.color }}</td><td></td></tr>
+      </table>
+
+      <div class="section-title">Work Description</div>
+      <div class="description-box">{{ data.description }}</div>
+
+      <div class="totals">
+        {% set total_val = data.total|float %}
+        <p>Total: ${{ "{:,.2f}".format(total_val).replace(",", "X").replace(".", ",").replace("X", ".") }}</p>
+      </div>
+
+      <div class="signature">
+        <p>Signature: ______________________</p>
+        <p>Date: ______________________</p>
+      </div>
+    </div>
+
+    <div class="footer"> 
+      <p>Guarantee is limited to the Work mentioned on this form and is not transferable. <br>
+      Guarantee work must be performed in our shop and the vehicle must be brought to ourfacility al the customer's <br>
+      expense & overall warranty cost cannot exceed the original cost of repair. <br>
+      Guarantee is void in case of misuse and/or neglect. The guarantee is 90 days or 3000 Miles, whichever comes first</p>
+      <p>
+         Charlie Auto Paint Corp - 12525 PRAIRE AVE, Hawthorne, CA 90250<br>
+         Phone: (310) 629-3311 · Email: alvarenga713@gmail.com
+      </p>
+      <p>Thank you For Choosing Us</p>
+    </div>
+
+  </div>
+</body>
+</html>
